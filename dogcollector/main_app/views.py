@@ -1,18 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Dog
 
-class Dog:  
-  def __init__(self, name, breed, description, age):
-    self.name = name
-    self.breed = breed
-    self.description = description
-    self.age = age
-
-dogs = [
-  Dog('Kobe', 'cockapoo', 'goodboi Kobe Bwyant', 9),
-  Dog('Noodlez', 'chihuahua', 'His Grace', 4),
-  Dog('Bailey', 'cockapoo', 'Bailey Boodle', 7)
-]
 
 
 def home(request):
@@ -22,4 +11,9 @@ def about(request):
     return render(request, 'about.html')
 
 def dogs_index(request):
+    dogs = Dog.objects.all()
     return render(request, 'dogs/index.html', {'dogs': dogs})
+
+def dogs_detail(request, dog_id):
+    dog = Dog.objects.get(id=dog_id)
+    return render(request, 'dogs/detail.html', {'dog': dog})
