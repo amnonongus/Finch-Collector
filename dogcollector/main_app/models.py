@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 class Dog(models.Model):
     name = models.CharField(max_length=100)
@@ -8,4 +9,8 @@ class Dog(models.Model):
     toys = models.IntegerField()
 
     def __str__(self):
-     return self.name
+        return self.name
+
+
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'dog_id': self.id})
