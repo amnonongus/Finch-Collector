@@ -24,7 +24,7 @@ WALKS = (
 
 
 class Walk(models.Model):
-    date = models.DateField()
+    date = models.DateField('Walk Date')
     time = models.CharField(
         max_length=1,
         choices=WALKS,
@@ -35,3 +35,6 @@ class Walk(models.Model):
 
     def __str__(self):
         return f"{self.get_time_display()} on {self.date}, for {self.dog.name}"
+
+    class Meta:
+        ordering = ['-date']
