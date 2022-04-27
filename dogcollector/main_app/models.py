@@ -14,3 +14,24 @@ class Dog(models.Model):
 
     def get_absolute_url(self):
         return reverse('detail', kwargs={'dog_id': self.id})
+
+WALKS = (
+    ('M', 'Morning'),
+    ('A', 'Afternoon'),
+    ('N', 'Night')
+)
+
+
+
+class Walk(models.Model):
+    date = models.DateField()
+    time = models.CharField(
+        max_length=1,
+        choices=WALKS,
+        default=WALKS[0][0]
+    )
+
+    dog = models.ForeignKey(Dog, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.get_time_display()} on {self.date}, for {self.dog.name}"
